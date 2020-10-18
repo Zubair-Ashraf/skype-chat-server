@@ -1,0 +1,18 @@
+type User {
+  id: ID! @id
+  username: String! @unique
+  email: String! @unique
+  password: String!
+  imageUrl: String
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type Message {
+  id: ID! @id
+  content: String!
+  from: String!
+  to: String!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}

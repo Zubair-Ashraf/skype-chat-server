@@ -1,0 +1,71 @@
+scalar DateTime
+
+type Query {
+  users: [User!]!
+  receiveMessages(data: receiveMessagesInput!): [Message!]!
+}
+
+type Mutation {
+  register(data: createUserInput!): AuthPayload!
+  login(data: loginUserInput!): AuthPayload!
+  sendMessage(data: sendMessageInput): Message!
+}
+
+type Subscription {
+  receiveMessage: Message!
+}
+
+type User {
+  id: ID!
+  username: String!
+  email: String
+  imageUrl: String
+  latestMessage: Message
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type Message {
+  id: ID!
+  content: String!
+  from: String!
+  to: String!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input createUserInput {
+  username: String!
+  email: String!
+  password: String!
+  imageUrl: String
+}
+
+input sendMessageInput {
+  to: String!
+  content: String!
+}
+
+input receiveMessagesInput {
+  from: String!
+}
+
+type AuthPayload {
+  user: User!
+  token: String!
+}
+type ReceiveMessageSubscriptionPayload {
+  node: Message!
+  mutation: MutationType!
+}
+
+input loginUserInput {
+  username: String!
+  password: String!
+}
+
+enum MutationType {
+  CREATED
+  DELETED
+  UPDATED
+}
